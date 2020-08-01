@@ -12,4 +12,4 @@ def display_form():
 def my_form_post():
     text = request.form["text"]
     processed_text = text.upper()
-    return processed_text
+    return f"this is your uppercased text: {processed_text}"
