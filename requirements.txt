@@ -1,4 +1,6 @@
+black
 bpemb
+flake8
 numpy
 pandas
 sklearn
