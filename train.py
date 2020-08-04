@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import os
 import re
 import numpy as np
@@ -12,11 +13,11 @@ from sklearn.metrics import f1_score
 from bpemb import BPEmb
 from scipy.sparse import hstack
 
-train_data_path = r'C:/Users/Dkrd/Documents/GitHub/writers_block/data/train'
-test_data_path = r'C:/Users/Dkrd/Documents/GitHub/writers_block/data/test'
+train_data_path = r'./data/train'
+test_data_path = r'./data/test'
 bpemb_ru = BPEmb(lang='ru', vs=100000)
 
-def train_model(train_data_path, test_data_path):
+def train_model(train_data_path=train_data_path, test_data_path=test_data_path):
     train_data_path = train_data_path
     test_data_path = test_data_path
 
@@ -70,7 +71,7 @@ def train_model(train_data_path, test_data_path):
     cross_validate(model, train_features, y_train_all)
     test_model(model, test_features, y_test)
 
-    return model
+    return "Training complete"
 
 #creating dataframes for training and test data to iterate over with .apply() later
 def read_data(path):
@@ -238,13 +239,13 @@ def lgb_f1_score(y_hat, data):
 #training the model
 #apparenty not using lambdas or using very low values gives better results
 params = {
-          'learning_rate': 0.008,
+          'learning_rate': 0.07,
           'application': 'binary',
-          'path_smooth' : 4,
+          'path_smooth' : 0,
           'max_bin' : 2,
           'max_depth': 1,
           'num_leaves': 2,
-          'feature_fraction': 0.0003,
+          'feature_fraction': 0.00003,
           'verbosity': -1,
           'n_thread': -1,
           'min_data_in_leaf' : 0,
@@ -276,5 +277,6 @@ def test_model(model, x, y):
     y_pred = np.round(model.predict(x))
     print(classification_report(y_pred, y, labels = [1,0], target_names = ['Hem', 'Other']))
 
+if __name__ == "__main__":
+    model = train_model(train_data_path, test_data_path)
 
-model = train_model(train_data_path, test_data_path)

@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import os
 import re
 import numpy as np
@@ -9,20 +10,6 @@ from sklearn.model_selection import train_test_split
 from bpemb import BPEmb
 from sklearn.feature_extraction.text import TfidfVectorizer
 from scipy.sparse import hstack
-
-# text_path = r'C:/Users/Dkrd/Documents/GitHub/writers_block/test_text'
-#
-# def import_text(path):
-#     res_data = []
-#     print('Read data...')
-#     if len(os.listdir(path)):
-#         for files in os.listdir(path):
-#             print('>>>', files)
-#             with open(os.path.join(path, files), 'r', encoding='utf-8') as f:
-#                 res_data.append(f.read())
-#     return res_data
-#
-# test_data = import_text(text_path)
 
 bpemb_ru = BPEmb(lang='ru', vs=100000)
 with open("vectorizer_word.pickle", "rb") as wordvec:
@@ -114,15 +101,3 @@ def normalize(array):
   norm = np.linalg.norm(array)
   array = array/norm
   return array
-
-def tokenizer(text):
-    text = bpemb_ru.encode(text)
-    return text
-
-# def main():
-#     result = predict(model, text)
-#     print(result)
-
-# if __name__ == "__main__":
-#     print("allahu akbar")
-#     main()

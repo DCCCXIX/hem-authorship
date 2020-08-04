@@ -129,6 +129,3 @@ dmypy.json
 .pyre/
 
 .vscode
-vectorizer_word.pickle
-lightgbm_model.txt
-vectorizer_char.pickle
