@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Text authorship prediction</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="../static/style.css" rel="stylesheet" type="text/css"/>
+    <h2>Text authorship prediction</h2>
+    <hr>
+</head>
+<body>
+    <form class="button">
+        <p>Paste your text to get a prediction<p>
+    </form>
+    <form class="button" method="POST">        
+        <textarea style="height:300px; width:50%;" name="text"></textarea>
+        <br>
+        <input type="submit" style="margin-left:0.5%; margin-top:1%;"> 
+        <hr>             
+    </form>    
+    <form class="button" action="/">	
+        <input type="submit" name="home_button" value="Home">
+        <input type="submit" name="train_button" value="Train the predictor">	            
+    </form>    
+</body>

@@ -1,4 +1,24 @@
-<form method="POST">
-    <input name="text">
-    <input type="submit">
-</form>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Text authorship predictor</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="../static/style.css" rel="stylesheet" type="text/css"/>
+ </head>
+    <h2>Text authorship predictor</h2>
+    <hr>
+</head>
+<body>    
+    <form>
+        <p>Predictor designed to attibute text authorship by analyzing a fragment of text.
+        <hr>  
+    </form>  
+    <form class="button" action="/train">    
+        <input type="submit" name="submit_button" value="Train the predictor">        
+    </form>
+    <form class="button" action="/predict">    
+        <input type="submit" name="submit_button" value="Predict text authorship">        
+    </form>    
+</body>
+</html>

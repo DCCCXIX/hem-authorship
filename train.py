@@ -15,41 +15,52 @@ from nltk.corpus import stopwords
 import feature_extractor
 
 class Trainer():
-    def __init__(self):
+    def __init__(self, sentence_amount = 5, step = 1):
         self.train_data_path = r'./data/train'
         self.test_data_path = r'./data/test'
-        self.extractor = feature_extractor.Feature_exctractor()
+        self.sentence_amount = sentence_amount
+        self.step = step
+        self.extractor = feature_extractor.Feature_extractor()
+        self.is_training = False
 
         #apparenty not using lambdas or using very low values gives better results
         self.params = {
-                  'learning_rate': 0.07,
-                  'application': 'binary',
-                  'path_smooth' : 0,
-                  'max_bin' : 2,
-                  'max_depth': 1,
-                  'num_leaves': 2,
-                  'feature_fraction': 0.00003,
-                  'verbosity': -1,
-                  'n_thread': -1,
-                  'min_data_in_leaf' : 0,
-                  'metric': 'xentropy',
-                  'lambda_l1': 0.0,
-                  'lambda_l2': 0.0
-                  }
+            'learning_rate': 0.1,
+            'extra_trees' : True,
+            'application': 'binary',
+            'path_smooth' : 0,
+            'max_bin' : 2,
+            'max_depth': 1,
+            'num_leaves': 2,
+            'feature_fraction': 0.00003,
+            'verbosity': -1,
+            'n_thread': -1,
+            'min_data_in_leaf' : 0,
+            'metric': 'xentropy',
+            'lambda_l1': 0.0,
+            'lambda_l2': 0.0
+            }
 
-    def train_model(self, sentense_count = 5):
+    def train_model(self):
+        if self.is_training:
+            return
+        
+        self.is_training = True
+        print(f'Training with {self.sentence_amount} sentences per sample for training data.')
         train_texts = self.read_data(self.train_data_path)
         test_texts = self.read_data(self.test_data_path)
 
-        train_features, train_labels = self.extractor.featurize(train_texts, sentense_count, is_train_data = True, keep_labels = True)
-        test_features, test_labels = self.extractor.featurize(test_texts, sentense_count, is_train_data = False, keep_labels = True)
+        train_features, train_labels = self.extractor.featurize(train_texts, self.sentence_amount, self.step, is_train_data = True, keep_labels = True)
+        test_features, test_labels = self.extractor.featurize(test_texts, self.sentence_amount, self.step, is_train_data = False, keep_labels = True)
 
-        print(len(train_labels))
         self.train_clf(train_features, train_labels, 666, self.params)
         self.model = lightgbm.Booster(model_file='lightgbm_model.txt')
         self.cross_validate(self.model, train_features, train_labels)
-        self.test_model(self.model, test_features, test_labels)
-        return "Training complete"
+        clf_report = self.test_model(self.model, test_features, test_labels)
+        print('Training complete')
+        self.is_training = False
+        return clf_report
+        
 
 
     def read_data(self, path):
@@ -66,7 +77,7 @@ class Trainer():
     def train_clf(self, train_features, train_labels, random_seed, params):
         print('Training...')
         evals_result = {}
-        train_matrix, valid_matrix, y_train, y_valid = train_test_split(train_features, train_labels, test_size=0.2, random_state=random_seed)
+        train_matrix, valid_matrix, y_train, y_valid = train_test_split(train_features, train_labels, test_size=0.1, random_state=random_seed)
 
         d_train = lightgbm.Dataset(train_matrix, label=y_train)
         d_valid = lightgbm.Dataset(valid_matrix, label=y_valid)
@@ -112,4 +123,6 @@ class Trainer():
 
     def test_model(self, model, x, y):
         y_pred = np.round(model.predict(x))
-        return print(classification_report(y_pred, y, labels = [1,0], target_names = ['Hem', 'Other']))
+        clfr = classification_report(y_pred, y, labels=[0, 1], target_names=['Hem', 'Other'])
+        print(clfr)
+        return clfr

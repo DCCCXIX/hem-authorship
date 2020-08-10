@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Training results</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="../static/style.css" rel="stylesheet" type="text/css"/>
+    <h2>Training results</h2>	
+</head>
+<body>    
+    <p>Training took (not implemented) seconds</p>
+    <p>Predictor's testing result:</p>
+    <p>{{clf_report}}</p>    
+    <form class="button" action="/">    
+        <input type="submit" name="home_button" value="Home">        
+    </form>
+    <form class="button" action="/predict">    
+        <input type="submit" name="predict_button" value="Predict text authorship">        
+    </form> 
+</body>
+</html>

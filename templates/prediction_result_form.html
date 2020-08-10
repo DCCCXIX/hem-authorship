@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Prediction results</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="../static/style.css" rel="stylesheet" type="text/css"/>
+    <h2>Prediction results</h2>
+    <hr>
+</head>
+<body>
+    <form class="button">
+        <p>{{explanation}}</p>
+        <p>{{result}}</p>
+        <hr>
+    </form>    
+    
+    <form action="/">	
+        <input class="button" type="submit" name="home" value="Home">	            
+    </form>
+    <form class="button" action="/predict">
+        <input type="submit" name="predict" value="Make another prediction">
+    </form>
+    <form class="button" action="/train">    
+        <input type="submit" name="train" value="Train the predictor">        
+    </form>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+    <title>Predictor training</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="../static/style.css" rel="stylesheet" type="text/css"/>
+    <h2>Predictor training</h2>
+    <hr>	
+</head>
+<body>
+    <form class="button" method="POST">
+	<p>Training the predictor with predefined training parameters</p>	
+        <hr>
+            {% if is_training %}
+            <p>Predictor is already training</p>
+            <img src="/static/loading.gif">
+            {% endif %}
+            <div id="loading" style="display:none;"><img src="static/loading.gif" alt="" /></div>
+        <hr>
+        <input type="submit" {% if not is_training %}onclick="$('#loading').show();"{% endif %} name="train" value="Train">                
+    </form> 
+    <form class="button" action="/">	
+        <input type="submit" name="home" value="Home">	            
+    </form>
+    <form class="button" action="/predict">        
+	<input type="submit" name="predict" value="Make a prediction">            
+    </form>
+</body>
+</html>
