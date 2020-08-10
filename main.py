@@ -47,27 +47,20 @@ def predict_form_post():
 is_training = False
 @app.route("/train")
 def training_form():
-    if is_training:
-        status = 'Predictor is currently training'
-    else:
-        status = ''
-    return render_template("training_form.html",  status=status, is_training=is_training)
+    return render_template("training_form.html", is_training=is_training)
 
 @app.route("/train", methods=["POST"])
 def training_form_post():
     global is_training
     if 'train' in request.form:
         if is_training:
-            status = 'Predictor is currently training'
-            return render_template("training_form.html", status=status, is_training=is_training)
+            return render_template("training_form.html", is_training=is_training)
         else:
             is_training = True
-            status = 'Predictor is currently training'
-            render_template("training_form.html", status=status, is_training=is_training)
             trainer = train.Trainer(sentence_amount=5, step=1)
             clf_report = trainer.train_model()
             is_training = False
     return render_template("training_result_form.html", clf_report=clf_report)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port = int(os.environ.get('PORT', 33507)))
