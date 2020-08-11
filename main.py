@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+import os
 from flask import Flask, request, render_template, url_for, redirect
 import predict
 import train
