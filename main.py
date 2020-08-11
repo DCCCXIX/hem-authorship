@@ -64,4 +64,4 @@ def training_form_post():
     return render_template("training_result_form.html", clf_report=clf_report)
 
 if __name__ == '__main__':
-    app.run(debug=True, port = int(os.environ.get('PORT', 33507)))
+    app.run(debug=True, host='0.0.0.0', port = int(os.environ.get('PORT', 5000)))
