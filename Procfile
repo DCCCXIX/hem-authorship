@@ -1,1 +1,1 @@
-web: python main.py
+web: gunicorn heroku_run:app
