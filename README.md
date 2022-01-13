@@ -9,7 +9,7 @@ Codebase consists of two parts: training and serving
 
 ```bash
 # cloning repo
-git clone git@github.com:kstolz/writers_block.git
+git clone git@github.com:DCCCXIX/hem-authorship.git
 cd writers_block
 
 # installing prerequisites
