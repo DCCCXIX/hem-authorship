@@ -13,7 +13,7 @@ git clone git@github.com:DCCCXIX/hem-authorship.git
 cd writers_block
 
 # installing prerequisites
-pip install
+pip install -r requirements.txt
 
 # launching flask server locally
 export FLASK_APP=main.py
